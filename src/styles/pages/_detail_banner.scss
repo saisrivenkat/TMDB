@@ -1,0 +1,27 @@
+.detail__banner {
+	display: flex;
+	height: 100vh;
+	background-repeat: no-repeat;
+	background-position: right -200px top;
+	background-size: contain;
+	border-bottom: 1px solid #453931;
+	height: 80vh;
+
+	&__custom_bg {
+		background-image: linear-gradient(
+			to right,
+			rgba(27.06%, 22.35%, 19.22%, 1) 150px,
+			rgba(27.06%, 22.35%, 19.22%, 0.8) 100%
+		);
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	&__img {
+		margin-left: 20px;
+	}
+	&__content {
+		color: white;
+		margin-left: 20px;
+	}
+}

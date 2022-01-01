@@ -1,0 +1,32 @@
+.popular {
+	margin: auto 50px;
+	h2 {
+		font-weight: 500;
+	}
+	&__title {
+		display: flex;
+		align-items: center;
+	}
+	&__items {
+		margin-left: 50px;
+		ul {
+			display: flex;
+			text-decoration: none;
+			list-style: none;
+			padding: 0;
+			border: 1px solid black;
+			border-radius: 50px;
+			overflow: hidden;
+			li {
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+		}
+	}
+	&__cards {
+		display: flex;
+	}
+	&--active {
+		background-color: green;
+	}
+}

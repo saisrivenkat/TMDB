@@ -1,0 +1,48 @@
+.movie {
+	display: flex;
+	overflow-x: scroll;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	&__content {
+		margin-right: 20px;
+		position: relative;
+		text-decoration: none;
+		color: black;
+	}
+	&__img {
+		img {
+			border-radius: 15px;
+		}
+	}
+	&__rating {
+		border: 1px solid black;
+		background-color: black;
+		border-radius: 50%;
+		height: 50px;
+		width: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		top: -30px;
+		left: 10px;
+		span {
+			padding: 10px;
+			color: white;
+			font-size: 15px;
+		}
+	}
+	&__title {
+		position: relative;
+		max-width: 120px;
+		h4 {
+			font-weight: 700;
+			margin: 0;
+		}
+	}
+	&__releasedate {
+		position: relative;
+		margin-top: 10px;
+	}
+}
