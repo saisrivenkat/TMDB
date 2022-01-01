@@ -1,19 +1,19 @@
+/* eslint-disable linebreak-style */
 import React, { useEffect } from 'react';
-import Banner from './MovieDetail_Banner';
 import { useParams } from 'react-router-dom';
-import { fetchTvShowDetails } from '../../redux/movies/movieslice';
 import { useDispatch } from 'react-redux';
-const Index = () => {
-  let params = useParams();
+import Banner from './MovieDetail_Banner';
+import { fetchTvShowDetails } from '../../redux/movies/movieslice';
+
+function Index() {
+  const params = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTvShowDetails(params.id));
-    console.log(params)
-  }, [params])
+    console.log(params);
+  }, [params]);
   return (
-    <>
-      <Banner />
-    </>
-  )
-};
+    <Banner />
+  );
+}
 export default Index;

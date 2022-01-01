@@ -1,20 +1,20 @@
+/* eslint-disable linebreak-style */
 import React, { useState } from 'react';
-import { setQuery, queryFetch } from '../redux/movies/movieslice';
 import { useDispatch } from 'react-redux';
+import { setQuery, queryFetch } from '../redux/movies/movieslice';
 
-const Banner = () => {
-  let dispatch = useDispatch();
-  const [query, setquery] = useState("");
+function Banner() {
+  const dispatch = useDispatch();
+  const [query, setquery] = useState('');
   const change = (e) => {
-    setquery(e.target.value)
-    console.log(e.target.value);
-  }
+    setquery(e.target.value);
+  };
   const submit = (e) => {
     e.preventDefault();
-    dispatch(setQuery(query))
-    dispatch(queryFetch(query))
-    setquery("")
-  }
+    dispatch(setQuery(query));
+    dispatch(queryFetch(query));
+    setquery('');
+  };
   return (
     <div className="banner">
       <div className="banner__content">
@@ -28,6 +28,6 @@ const Banner = () => {
         </div>
       </div>
     </div>
-  )
-};
+  );
+}
 export default Banner;
