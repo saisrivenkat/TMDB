@@ -1,18 +1,22 @@
 /* eslint-disable linebreak-style */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { setQuery, queryFetch } from '../redux/movies/movieslice';
+import React, { useContext, useState } from 'react';
+import { Appcontext } from '../App';
 
 function Banner() {
-  const dispatch = useDispatch();
+  const store=useContext(Appcontext)
   const [query, setquery] = useState('');
   const change = (e) => {
     setquery(e.target.value);
   };
+  const search_result =async()=>{
+    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=2cd801dd5229267983db8c82fe3a7ef4&language=en-US&query=${query}&page=1&include_adult=false`)
+    const result = await res.json();
+    console.log(result)
+  }
   const submit = (e) => {
     e.preventDefault();
-    dispatch(setQuery(query));
-    dispatch(queryFetch(query));
+    store.setSearchTerm(query);
+    search_result();
     setquery('');
   };
   return (

@@ -2,29 +2,37 @@
 
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
 import Card from './MovieCard';
-import {
-  fetchmovies, fetchtvshows, changecurrent, query,
-} from '../redux/movies/movieslice';
+import { Appcontext } from '../App';
+import MovieCard from './Card';
 
 function PopularMovies() {
-  const dispatch = useDispatch();
-  const Query = useSelector(query);
+  const store = useContext(Appcontext);
   const [currenttype, setcurrenttype] = useState('movies');
-  useEffect(() => {
-    dispatch(fetchmovies());
-    dispatch(fetchtvshows());
-  });
+  
 
   const change = (type) => {
-    dispatch(changecurrent(type));
+    store.setcurr(type);
     setcurrenttype(type);
+  };
+  const click = (movie) => {
+    console.log(movie.id);
+    const isThere = store.liked.filter(
+      (liked_movie) => liked_movie.id === movie.id
+    );
+    if (isThere.length > 0) {
+      const new_liked = store.liked.filter(
+        (liked_movie) => liked_movie.id !== movie.id
+      );
+      store.setliked(new_liked);
+    } else {
+      store.setliked([...store.liked, movie]);
+    }
   };
   return (
     <div className="popular">
-      {Query ? null
+      {store.searchTerm ? null
         : (
           <div className="popular__title">
             <h2>What&apos;s Popular</h2>
@@ -53,7 +61,29 @@ function PopularMovies() {
           </div>
         )}
       <div className="popular__cards">
-        <Card type={currenttype} />
+        <Card  />
+      </div>
+      <div className='scifi_cards'>
+        <h2>Sci-fi movies</h2>
+        <div className='movie' style={{}}>
+        {store.scifi.map((movie)=>{
+          return(
+            <MovieCard movie={movie} liked={store.liked.find((item)=>item.id === movie.id)} click={click} />
+          )
+        })}
+        </div>
+        
+      </div>
+      <div className='scifi_cards'>
+        <h2>Animation movies</h2>
+        <div className='movie' style={{}}>
+        {store.animation.map((movie)=>{
+          return(
+            <MovieCard movie={movie} liked={store.liked.find((item)=>item.id === movie.id)} click={click} />
+          )
+        })}
+        </div>
+        
       </div>
     </div>
   );

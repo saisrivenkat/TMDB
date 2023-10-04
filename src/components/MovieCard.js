@@ -1,82 +1,51 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-nested-ternary */
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import {
-  getallmovies, getalltvshows, current, query, queryresults,
-} from '../redux/movies/movieslice';
+import React, { useContext } from "react";
+
+import { Appcontext } from "../App.js";
+import Card from "./Card.js";
 
 function MovieCard() {
-  const movies = useSelector(getallmovies);
-  const cur = useSelector(current);
-  const tvshows = useSelector(getalltvshows);
-  const q = useSelector(query);
-  const results = useSelector(queryresults);
+  const store = useContext(Appcontext);
+
+  const click = (movie) => {
+    console.log(movie.id);
+    const isThere = store.liked.filter(
+      (liked_movie) => liked_movie.id === movie.id
+    );
+    if (isThere.length > 0) {
+      const new_liked = store.liked.filter(
+        (liked_movie) => liked_movie.id !== movie.id
+      );
+      store.setliked(new_liked);
+    } else {
+      store.setliked([...store.liked, movie]);
+    }
+  };
   return (
     <div className="movie">
-      {q === ''
-        ? cur === 'movies' ? movies.map((movie) => (
-          <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none' }}>
-            <div className="movie__content">
-              <div className="movie__img">
-                <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`} alt="movie-name" height="200" />
-              </div>
-              <div className="movie__rating">
-                <span>
-                  {movie.vote_average * 10}
-                  %
-                </span>
-              </div>
-              <div className="movie__title">
-                <h4>{movie.original_title}</h4>
-              </div>
-              <div className="movie__releasedate">
-                <span>Dec 17,2021</span>
-              </div>
-            </div>
-          </Link>
-        ))
-          : tvshows.map((movie) => (
-            <Link to={`/tv/${movie.id}`} style={{ textDecoration: 'none' }}>
-              <div className="movie__content">
-                <div className="movie__img">
-                  <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`} alt="movie-name" height="200" />
-                </div>
-                <div className="movie__rating">
-                  <span>
-                    {movie.vote_average * 10}
-                    %
-                  </span>
-                </div>
-                <div className="movie__title">
-                  <h4>{movie.name}</h4>
-                </div>
-                <div className="movie__releasedate">
-                  <span>Dec 17,2021</span>
-                </div>
-              </div>
-            </Link>
-          ))
-
-        : results.map((movie) => (
-          <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none' }}>
-            <div className="movie__content">
-              <div className="movie__img">
-                <img src={`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`} alt="movie-name" height="200" />
-              </div>
-              <div className="movie__rating">
-                <span>
-                  {movie.vote_average * 10}
-                  %
-                </span>
-              </div>
-              <div className="movie__title">
-                <h4>{movie.original_title}</h4>
-              </div>
-            </div>
-          </Link>
-        ))}
+      {store.searchTerm === ""
+        ? store.curr === "movies"
+          ? store.movies.map((movie) => (
+              <Card
+                movie={movie}
+                liked={store.liked.find((item)=>item.id === movie.id)}
+                click={click}
+              />
+            ))
+          : store.tvShows.map((movie) => (
+            <Card
+            movie={movie}
+                liked={store.liked.find((item)=>item.id === movie.id)}
+                click={click}
+                type="TV"
+            />
+              
+            ))
+        : store.res.map((movie) => (
+          <Card movie={movie} click={click} liked={store.liked.find((item)=>item.id === movie.id)}/>
+            
+          ))}
     </div>
   );
 }

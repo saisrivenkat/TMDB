@@ -54,17 +54,7 @@ export const movieslice = createSlice({
     setQuery: (state, { payload }) => {
       state.query = payload;
     },
-  },
-  extraReducers: {
-
-    [fetchmovies.fulfilled]: (state, { payload }) => ({ ...state, movies: payload }),
-
-    [fetchtvshows.fulfilled]: (state, { payload }) => ({ ...state, tvshows: payload }),
-
-    [fetchMovieDetails.fulfilled]: (state, { payload }) => ({ ...state, moviedetail: payload }),
-    [fetchTvShowDetails.fulfilled]: (state, { payload }) => ({ ...state, moviedetail: payload }),
-    [queryFetch.fulfilled]: (state, { payload }) => ({ ...state, queryresults: payload }),
-  },
+  }
 });
 export const { changecurrent } = movieslice.actions;
 export const { setQuery } = movieslice.actions;

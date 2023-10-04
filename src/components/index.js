@@ -3,10 +3,11 @@ import Banner from './Banner';
 import PopularMovies from './Popular';
 
 const Index = () => {
+  
   return (
     <>
-      <Banner />
-      <PopularMovies />
+      <Banner  />
+      <PopularMovies   />
     </>
   )
 };
